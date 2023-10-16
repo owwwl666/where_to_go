@@ -12,7 +12,6 @@ def show_map(request):
         "features": []
     }
     for place in places.iterator():
-        place_data = get_page_with_place(request, place.pk)
         places_json["features"].append(
             {
                 "type": "Feature",
