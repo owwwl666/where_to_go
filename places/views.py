@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Place, PlaceImage
+from django.urls import reverse
 
 
 def show_map(request):
@@ -11,6 +12,7 @@ def show_map(request):
         "features": []
     }
     for place in places.iterator():
+        place_data = get_page_with_place(request, place.pk)
         places_json["features"].append(
             {
                 "type": "Feature",
@@ -21,7 +23,7 @@ def show_map(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.id,
-                    "detailsUrl": ""
+                    "detailsUrl": reverse('places', args=(place.pk,))
                 }
             }
         )
