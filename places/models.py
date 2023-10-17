@@ -11,6 +11,9 @@ class Place(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['title']
+
 
 class PlaceImage(models.Model):
     image = models.ImageField(verbose_name='Изображение')
@@ -19,3 +22,6 @@ class PlaceImage(models.Model):
 
     def __str__(self):
         return self.place.title
+
+    class Meta:
+        ordering = ['number']
