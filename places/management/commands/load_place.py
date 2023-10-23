@@ -38,8 +38,8 @@ class Command(BaseCommand):
         title = place_data.get('title')
         description_short = place_data.get('description_short')
         description_long = place_data.get('description_long')
-        longitude = place_data['coordinates']['lng']
-        latitude = place_data['coordinates']['lat']
+        longitude = place_data.get('coordinates').get('lng')
+        latitude = place_data.get('coordinates').get('lat')
         images_url = place_data.get('imgs')
 
         for image_number, image_url in enumerate(images_url):
