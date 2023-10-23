@@ -12,6 +12,8 @@
 
 
 ### Установка зависимостей
+Используется python v3.10
+
 Введите в терминале команду
 
 ```
@@ -51,4 +53,13 @@ python manage.py load_place http://адрес/файла.json
 ```
 
 Данные с локацями можно получить [здесь](https://github.com/devmanorg/where-to-go-places/tree/master/places).
+
+### Запуск сайта локально
+```
+python manage.py runserver
+```
+
+# Результат
+![image](https://github.com/owwwl666/where_to_go/assets/131767856/ff428108-5063-4768-bf47-2fe8b6a8a3f3)
+
 
