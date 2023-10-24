@@ -10,9 +10,9 @@ class PlaceImageInline(SortableTabularInline):
     model = PlaceImage
     readonly_fields = ['preview_image']
 
-    def preview_image(self, placeimage):
+    def preview_image(self, place_image):
         return format_html('<img src={} width={} height={}>',
-                           placeimage.image.url, 200, 200)
+                           place_image.image.url, 200, 200)
 
 
 @admin.register(Place)
