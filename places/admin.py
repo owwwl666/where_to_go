@@ -23,3 +23,9 @@ class PlaceImageInline(SortableTabularInline):
 class PlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ['title']
     inlines = [PlaceImageInline]
+
+
+@admin.register(PlaceImage)
+class PlaceImageAdmin(admin.ModelAdmin):
+    list_display = ['place', 'number']
+    raw_id_fields = ['place']
