@@ -15,6 +15,8 @@ class Place(models.Model):
 
     class Meta:
         ordering = ['title']
+        verbose_name = 'Место'
+        verbose_name_plural = 'Места'
 
 
 class PlaceImage(models.Model):
@@ -27,3 +29,5 @@ class PlaceImage(models.Model):
 
     class Meta:
         ordering = ['number']
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
