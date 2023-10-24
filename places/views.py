@@ -34,7 +34,7 @@ def get_page_with_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     place_images = PlaceImage.objects.filter(place=place)
     images = [place_image.image.url for place_image in place_images]
-    place_data = {
+    serialize_place = {
         "title": place.title,
         "imgs": images,
         "description_short": place.short_description,
@@ -44,4 +44,4 @@ def get_page_with_place(request, place_id):
             "lng": place.longitude
         }
     }
-    return JsonResponse(place_data, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+    return JsonResponse(serialize_place, json_dumps_params={'ensure_ascii': False, 'indent': 2})
