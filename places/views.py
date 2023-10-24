@@ -1,8 +1,9 @@
-from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Place, PlaceImage
 from django.urls import reverse
+
+from .models import Place, PlaceImage
 
 
 def show_map(request):
