@@ -11,12 +11,8 @@ class PlaceImageInline(SortableTabularInline):
     readonly_fields = ['preview_image']
 
     def preview_image(self, obj):
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width=200,
-            height=200,
-        )
-        )
+        return format_html('<img src={} width={} height={}>',
+                           obj.image.url, 200, 200)
 
 
 @admin.register(Place)
