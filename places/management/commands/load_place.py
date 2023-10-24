@@ -29,8 +29,9 @@ class Command(BaseCommand):
             """Сохраняет в базу данных все картинки выбранной локации."""
             place = get_or_create_place_in_database(title, short_description, long_description, longitude,
                                                     latitude)
-            place_image, _ = PlaceImage.objects.get_or_create(number=image_number, place=place)
-            place_image.image.save(image_name, content=ContentFile(image), save=True)
+            place_image, _ = PlaceImage.objects.get_or_create(image=ContentFile(image, name=image_name),
+                                                              number=image_number,
+                                                              place=place)
 
         url = kwargs['url']
 
@@ -38,8 +39,8 @@ class Command(BaseCommand):
         place_data = response.json()
 
         title = place_data.get('title')
-        short_description = place_data.get('short_description')
-        long_description = place_data.get('long_description')
+        short_description = place_data.get('description_short')
+        long_description = place_data.get('description_long')
         longitude = place_data.get('coordinates').get('lng')
         latitude = place_data.get('coordinates').get('lat')
         images_url = place_data.get('imgs')
