@@ -32,7 +32,7 @@ def show_map(request):
 
 def get_page_with_place(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    place_images = PlaceImage.objects.filter(place=place)
+    place_images = place.images.all()
     images = [place_image.image.url for place_image in place_images]
     serialize_place = {
         "title": place.title,
