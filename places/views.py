@@ -8,12 +8,12 @@ from .models import Place, PlaceImage
 
 def show_map(request):
     places = Place.objects.all()
-    places_json = {
+    serialize_places = {
         "type": "FeatureCollection",
         "features": []
     }
     for place in places.iterator():
-        places_json["features"].append(
+        serialize_places["features"].append(
             {
                 "type": "Feature",
                 "geometry": {
@@ -27,7 +27,7 @@ def show_map(request):
                 }
             }
         )
-    return render(request, template_name="index.html", context={"places": places_json})
+    return render(request, template_name="index.html", context={"places": serialize_places})
 
 
 def get_page_with_place(request, place_id):
