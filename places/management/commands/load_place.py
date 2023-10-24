@@ -13,22 +13,8 @@ class Command(BaseCommand):
         parser.add_argument('url', type=str, help="URL адрес JSON файла для скачивания.")
 
     def handle(self, *args, **kwargs):
-        def get_or_create_place_in_database(title, short_description, long_description, longitude,
-                                            latitude):
-            """Создает локацию в базе данных либо получает из нее, если локация уже создана."""
-            place, _ = Place.objects.get_or_create(
-                title=title,
-                short_description=short_description,
-                long_description=long_description,
-                longitude=longitude,
-                latitude=latitude
-            )
-            return place
-
-        def get_or_create_images_in_database(image, image_name, image_number):
+        def get_or_create_images_in_database(image, image_name, image_number, place):
             """Сохраняет в базу данных все картинки выбранной локации."""
-            place = get_or_create_place_in_database(title, short_description, long_description, longitude,
-                                                    latitude)
             place_image, _ = PlaceImage.objects.get_or_create(image=ContentFile(image, name=image_name),
                                                               number=image_number,
                                                               place=place)
@@ -38,12 +24,16 @@ class Command(BaseCommand):
         response = requests.get(url)
         place_data = response.json()
 
-        title = place_data.get('title')
-        short_description = place_data.get('description_short')
-        long_description = place_data.get('description_long')
-        longitude = place_data.get('coordinates').get('lng')
-        latitude = place_data.get('coordinates').get('lat')
         images_url = place_data.get('imgs')
+        title = place_data.get('title')
+
+        place, _ = Place.objects.get_or_create(
+            title=title,
+            short_description=place_data.get('description_short'),
+            long_description=place_data.get('description_long'),
+            longitude=place_data.get('coordinates').get('lng'),
+            latitude=place_data.get('coordinates').get('lat')
+        )
 
         for image_number, image_url in enumerate(images_url):
             response = requests.get(image_url)
@@ -53,5 +43,6 @@ class Command(BaseCommand):
             get_or_create_images_in_database(
                 image=image,
                 image_name=image_name,
-                image_number=image_number
+                image_number=image_number,
+                place=place
             )
