@@ -29,10 +29,12 @@ class Command(BaseCommand):
 
         place, _ = Place.objects.get_or_create(
             title=title,
-            short_description=place_data.get('description_short'),
-            long_description=place_data.get('description_long'),
-            longitude=place_data.get('coordinates').get('lng'),
-            latitude=place_data.get('coordinates').get('lat')
+            defaults={
+                'short_description': place_data.get('description_short'),
+                'long_description': place_data.get('description_long'),
+                'longitude': place_data.get('coordinates').get('lng'),
+                'latitude': place_data.get('coordinates').get('lat')
+            }
         )
 
         for image_number, image_url in enumerate(images_url):
