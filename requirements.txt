@@ -5,3 +5,4 @@ typing_extensions==4.8.0
 environs==9.5.0
 requests==2.31.0
 django-tinymce==3.6.1
+django-debug-toolbar==4.2.0
