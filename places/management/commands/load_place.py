@@ -16,18 +16,18 @@ class Command(BaseCommand):
         url = kwargs['url']
 
         response = requests.get(url)
-        place_data = response.json()
+        payload = response.json()
 
-        images_url = place_data.get('imgs')
-        title = place_data.get('title')
+        images_url = payload.get('imgs')
+        title = payload.get('title')
 
         place, _ = Place.objects.get_or_create(
             title=title,
             defaults={
-                'short_description': place_data.get('description_short'),
-                'long_description': place_data.get('description_long'),
-                'longitude': place_data.get('coordinates').get('lng'),
-                'latitude': place_data.get('coordinates').get('lat')
+                'short_description': payload.get('description_short'),
+                'long_description': payload.get('description_long'),
+                'longitude': payload.get('coordinates').get('lng'),
+                'latitude': payload.get('coordinates').get('lat')
             }
         )
 
