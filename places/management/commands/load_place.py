@@ -13,12 +13,6 @@ class Command(BaseCommand):
         parser.add_argument('url', type=str, help="URL адрес JSON файла для скачивания.")
 
     def handle(self, *args, **kwargs):
-        def get_or_create_images_in_database(image, image_name, image_number, place):
-            """Сохраняет в базу данных все картинки выбранной локации."""
-            place_image, _ = PlaceImage.objects.get_or_create(image=ContentFile(image, name=image_name),
-                                                              number=image_number,
-                                                              place=place)
-
         url = kwargs['url']
 
         response = requests.get(url)
@@ -42,9 +36,8 @@ class Command(BaseCommand):
             image = response.content
             image_name = f'{title}_{image_number}.jpg'
 
-            get_or_create_images_in_database(
-                image=image,
-                image_name=image_name,
-                image_number=image_number,
+            place_image, _ = PlaceImage.objects.get_or_create(
+                image=ContentFile(image, name=image_name),
+                number=image_number,
                 place=place
             )
