@@ -7,10 +7,15 @@ from places.models import Place, PlaceImage
 
 
 class Command(BaseCommand):
-    help = "Скачивает json файл с данными о конкретной локации на карте и сохраняет информацию в базу данных."
+    help = ("Скачивает json файл с данными о конкретной локации на карте "
+            "и сохраняет информацию в базу данных.")
 
     def add_arguments(self, parser):
-        parser.add_argument('url', type=str, help="URL адрес JSON файла для скачивания.")
+        parser.add_argument(
+            'url',
+            type=str,
+            help="URL адрес JSON файла для скачивания."
+        )
 
     def handle(self, *args, **kwargs):
         url = kwargs['url']
